@@ -75,6 +75,7 @@
 .listings-grid {
   display: flex;
   justify-content: center; /* Center-aligns all cards */
+  align-self: center;
   flex-wrap: wrap;
   gap: 20px;
 }

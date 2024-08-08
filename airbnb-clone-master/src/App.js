@@ -7,24 +7,22 @@ import HomePage from './pages/HomePage';
 import ListingsPage from './pages/ListingsPage';
 import AboutPage from './pages/AboutPage';
 import RoomDetail from './pages/RoomDetail';
+import ResetPasswordPage from './pages/ResetPasswordPage'; // Import reset password page
 import { StateProvider, useStateValue } from './context/StateProvider';
 
 const AppContent = () => {
   const { state, dispatch } = useStateValue();
 
   useEffect(() => {
-    // Keep the current page in local storage to persist across reloads
+    // Initialize state from localStorage
     const savedPage = localStorage.getItem('currentPage');
     if (savedPage) {
-      dispatch({
-        type: 'SET_PAGE',
-        payload: savedPage,
-      });
+      dispatch({ type: 'SET_PAGE', payload: savedPage });
     }
   }, [dispatch]);
 
   useEffect(() => {
-    // Save the current page to local storage whenever it changes
+    // Save state to localStorage
     localStorage.setItem('currentPage', state.currentPage);
   }, [state.currentPage]);
 
@@ -38,8 +36,10 @@ const AppContent = () => {
         return <AboutPage />;
       case 'roomDetail':
         return <RoomDetail />;
+      case 'resetPassword':
+        return <ResetPasswordPage />;
       default:
-        return <HomePage />;
+        return <HomePage />; // Default to HomePage
     }
   };
 
@@ -52,12 +52,10 @@ const AppContent = () => {
   );
 };
 
-const App = () => {
-  return (
-    <StateProvider>
-      <AppContent />
-    </StateProvider>
-  );
-};
+const App = () => (
+  <StateProvider>
+    <AppContent />
+  </StateProvider>
+);
 
 export default App;

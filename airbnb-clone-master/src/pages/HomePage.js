@@ -27,6 +27,46 @@ const featureListings = [
     benefits: "Relax and enjoy a beautiful beachfront view.",
   },
   {
+    id: 1,
+    title: "Beautiful Beachfront Apartment",
+    location: "Miami, FL",
+    price: 200,
+    mainImageUrl: "/images/bedroom-4.jpg",
+    imageUrls: [
+      "/images/bedroom-5.jpg",
+      "/images/bedroom-6.jpg",
+      "/images/bedroom-7.jpg",
+      "/images/window-1.jpg",
+    ],
+    hostName: "Jane Smith",
+    hostContact: "jane.smith@example.com",
+    services: [
+      { name: "Free Wi-Fi", icon: "fas fa-wifi" },
+      { name: "Pool Access", icon: "fas fa-swimmer" },
+    ],
+    benefits: "Relax and enjoy a beautiful beachfront view.",
+  },
+  {
+    id: 1,
+    title: "Beautiful Beachfront Apartment",
+    location: "Miami, FL",
+    price: 200,
+    mainImageUrl: "/images/bedroom-4.jpg",
+    imageUrls: [
+      "/images/bedroom-5.jpg",
+      "/images/bedroom-6.jpg",
+      "/images/bedroom-7.jpg",
+      "/images/window-1.jpg",
+    ],
+    hostName: "Jane Smith",
+    hostContact: "jane.smith@example.com",
+    services: [
+      { name: "Free Wi-Fi", icon: "fas fa-wifi" },
+      { name: "Pool Access", icon: "fas fa-swimmer" },
+    ],
+    benefits: "Relax and enjoy a beautiful beachfront view.",
+  },
+  {
     id: 2,
     title: "Modern City Loft",
     location: "New York, NY",
@@ -67,7 +107,7 @@ const HomePage = () => {
   return (
     <div className="home-page">
       <header className="hero-section">
-        <h1>Welcome to Our Airbnb Clone</h1>
+        <h1>Welcome to Our Airbnb</h1>
         <p>Discover unique places to stay and experiences around the world.</p>
       </header>
       <section className="features-section">

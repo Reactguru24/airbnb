@@ -3,15 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import { useStateValue } from '../context/StateProvider';
 import './Navbar.css';
-import { auth } from '../firebase'; // Import auth from Firebase
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'; // Import authentication functions
+import { auth } from '../firebase';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'firebase/auth';
+import Modal from './Modal'; // Import the reusable Modal component
 
 const Navbar = () => {
   const { state, dispatch } = useStateValue();
-  const [modalType, setModalType] = useState(null); // State to track which modal to show
+  const [modalType, setModalType] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [notification, setNotification] = useState(null);
+  const [notificationType, setNotificationType] = useState('');
 
   const changePage = (page) => {
     dispatch({
@@ -24,13 +26,15 @@ const Navbar = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setNotification('Signed in successfully!');
+        setNotificationType('success');
         dispatch({ type: 'SET_USER', payload: userCredential.user });
-        setModalType(null); // Close modal
+        setModalType(null);
         setEmail('');
         setPassword('');
       })
       .catch((error) => {
         setNotification('Error signing in: ' + error.message);
+        setNotificationType('error');
       });
   };
 
@@ -38,13 +42,15 @@ const Navbar = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setNotification('Signed up successfully!');
+        setNotificationType('success');
         dispatch({ type: 'SET_USER', payload: userCredential.user });
-        setModalType(null); // Close modal
+        setModalType(null);
         setEmail('');
         setPassword('');
       })
       .catch((error) => {
         setNotification('Error signing up: ' + error.message);
+        setNotificationType('error');
       });
   };
 
@@ -52,19 +58,36 @@ const Navbar = () => {
     signOut(auth)
       .then(() => {
         setNotification('Signed out successfully!');
+        setNotificationType('success');
         dispatch({ type: 'SET_USER', payload: null });
       })
       .catch((error) => {
         setNotification('Error signing out: ' + error.message);
+        setNotificationType('error');
+      });
+  };
+
+  const handlePasswordRecovery = () => {
+    if (!email) {
+      setNotification('Please enter your email address.');
+      setNotificationType('error');
+      return;
+    }
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        setNotification('Password reset email sent!');
+        setNotificationType('success');
+        setModalType(null);
+      })
+      .catch((error) => {
+        setNotification('Error sending reset email: ' + error.message);
+        setNotificationType('error');
       });
   };
 
   useEffect(() => {
     if (notification) {
-      const timer = setTimeout(() => {
-        setNotification(null);
-      }, 4000);
-
+      const timer = setTimeout(() => setNotification(null), 4000);
       return () => clearTimeout(timer);
     }
   }, [notification]);
@@ -113,34 +136,20 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Modal for Sign In/Sign Up */}
-      {(modalType === 'signIn' || modalType === 'signUp') && (
-        <div className="modal-overlay" onClick={() => setModalType(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>{modalType === 'signIn' ? 'Sign In' : 'Sign Up'}</h2>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button onClick={modalType === 'signIn' ? handleSignIn : handleSignUp}>
-              {modalType === 'signIn' ? 'Sign In' : 'Sign Up'}
-            </button>
-            <button onClick={() => setModalType(null)}>Close</button>
-          </div>
-        </div>
-      )}
+      <Modal
+        modalType={modalType}
+        setModalType={setModalType}
+        handleSignIn={handleSignIn}
+        handleSignUp={handleSignUp}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        handlePasswordRecovery={handlePasswordRecovery}
+      />
 
-      {/* Notification */}
       {notification && (
-        <div className="notification">
+        <div className={`notification ${notificationType}`}>
           {notification}
         </div>
       )}

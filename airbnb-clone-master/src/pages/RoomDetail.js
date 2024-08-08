@@ -3,6 +3,10 @@
 import React, { useState } from 'react';
 import { useStateValue } from '../context/StateProvider';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import WifiIcon from '@mui/icons-material/Wifi';
+import PoolIcon from '@mui/icons-material/Pool';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import Modal from '../components/Modal'; // Import the reusable Modal component
 import './RoomDetail.css';
 
 const mapContainerStyle = {
@@ -16,36 +20,67 @@ const mapCenter = {
 };
 
 const RoomDetail = () => {
-  const { state } = useStateValue();
+  const { state, dispatch } = useStateValue();
   const listing = state.selectedListing;
 
-  // State to track the currently displayed main image
   const [currentMainImage, setCurrentMainImage] = useState(
     listing?.mainImageUrl || 'default-image-url'
   );
+  const [modalType, setModalType] = useState(null); // State to track which modal to show
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [notification, setNotification] = useState(null);
 
   if (!listing) {
     return <div>No listing selected</div>;
   }
 
   const handleOrderClick = () => {
-    // Implement order logic here, e.g., navigate to an order form or booking process
+    if (!state.user) {
+      setModalType('signIn');
+      return;
+    }
+
     console.log(`Ordering room: ${listing.title}`);
     alert('Order placed successfully!');
   };
 
-  const isAvailable = listing.availability === 'Available'; // Determine if the listing is available
+  const isAvailable = listing.availability === 'Available';
 
-  // Function to handle clicking on side images
   const handleSideImageClick = (url) => {
-    setCurrentMainImage(url); // Update the main image to the clicked side image
+    setCurrentMainImage(url);
+  };
+
+  const getServiceIcon = (serviceName) => {
+    switch (serviceName) {
+      case 'Free Wi-Fi':
+        return <WifiIcon />;
+      case 'Pool Access':
+        return <PoolIcon />;
+      case 'Gym Access':
+        return <FitnessCenterIcon />;
+      default:
+        return null;
+    }
+  };
+
+  const handleSignIn = () => {
+    // Implement sign-in logic here
+    setNotification('Signed in successfully!');
+    setModalType(null);
+  };
+
+  const handleSignUp = () => {
+    // Implement sign-up logic here
+    setNotification('Signed up successfully!');
+    setModalType(null);
   };
 
   return (
     <div className="room-detail">
       <div className="images-section">
         <img
-          src={currentMainImage} // Use the current main image
+          src={currentMainImage}
           alt={listing.title || 'Listing'}
           className="main-image"
         />
@@ -56,7 +91,7 @@ const RoomDetail = () => {
               src={url}
               alt={`Listing ${index}`}
               className="side-image"
-              onClick={() => handleSideImageClick(url)} // Set the main image on click
+              onClick={() => handleSideImageClick(url)}
             />
           ))}
         </div>
@@ -78,7 +113,7 @@ const RoomDetail = () => {
           <ul>
             {(listing.services || []).map((service, index) => (
               <li key={index}>
-                <i className={service.icon}></i> {service.name}
+                {getServiceIcon(service.name)} {service.name}
               </li>
             ))}
           </ul>
@@ -107,6 +142,24 @@ const RoomDetail = () => {
           </LoadScript>
         </div>
       </div>
+
+      <Modal
+        modalType={modalType}
+        setModalType={setModalType}
+        handleSignIn={handleSignIn}
+        handleSignUp={handleSignUp}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+      />
+
+      {/* Notification */}
+      {notification && (
+        <div className="notification">
+          {notification}
+        </div>
+      )}
     </div>
   );
 };
