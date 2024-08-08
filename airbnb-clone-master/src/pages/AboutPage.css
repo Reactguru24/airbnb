@@ -1,0 +1,21 @@
+/* src/pages/AboutPage.css */
+.about-page {
+    padding: 20px;
+    background-color: #f4f4f8;
+    color: #333;
+    text-align: center;
+  }
+  
+  .about-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ff5a5f;
+  }
+  
+  .about-page p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  

@@ -1,0 +1,134 @@
+/* src/pages/RoomDetail.css */
+
+.room-detail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+  
+  .images-section {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    margin: 10px;
+  }
+  
+  .main-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: opacity 0.3s ease;
+  }
+  
+  .side-images {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 5px;
+  }
+  
+  .side-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .side-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .info-section {
+    flex: 2;
+    min-width: 300px;
+    max-width: 600px;
+    margin: 10px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  
+  .info-section h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .info-section p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .available {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .unavailable {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .host-info,
+  .services,
+  .benefits {
+    margin-top: 20px;
+  }
+  
+  .host-info h3,
+  .services h3,
+  .benefits h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .services ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .services li {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+  
+  .services i {
+    margin-right: 8px;
+  }
+  
+  .benefits p {
+    font-size: 1.1rem;
+    margin-top: 10px;
+  }
+  
+  .order-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .order-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .order-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  

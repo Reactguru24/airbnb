@@ -1,0 +1,96 @@
+/* src/styles/global.css */
+
+/* Reset some default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #f5f5f5;
+  }
+  
+  /* Set basic styles for the app container */
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Basic styles for headers */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  /* Styling for paragraphs */
+  p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+  /* Links */
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Utility classes for padding and margin */
+  .mt-1 { margin-top: 10px; }
+  .mt-2 { margin-top: 20px; }
+  .mt-3 { margin-top: 30px; }
+  
+  .mb-1 { margin-bottom: 10px; }
+  .mb-2 { margin-bottom: 20px; }
+  .mb-3 { margin-bottom: 30px; }
+  
+  .pt-1 { padding-top: 10px; }
+  .pt-2 { padding-top: 20px; }
+  .pt-3 { padding-top: 30px; }
+  
+  .pb-1 { padding-bottom: 10px; }
+  .pb-2 { padding-bottom: 20px; }
+  .pb-3 { padding-bottom: 30px; }
+  
+  /* Flex utilities */
+  .d-flex {
+    display: flex;
+  }
+  
+  .justify-center {
+    justify-content: center;
+  }
+  
+  .align-center {
+    align-items: center;
+  }
+  
+  .flex-column {
+    flex-direction: column;
+  }
+  
+  /* Button styling */
+  button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
